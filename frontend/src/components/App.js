@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from "react-redux"
 import { handleInitialData } from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
-import CategoryPage from './CategoryPage'
+import Dashboard  from './Dashboard'
+import CategoryPage from "./CategoryPage";
 import Nav from './Nav'
 
 import '../App.css';
@@ -21,13 +22,15 @@ class App extends Component {
       <Router>
         <Fragment>
           <LoadingBar />
-          <div className="App">
-            <Nav/>
+          <div className="App container-fluid">
+            <Nav />
             {this.props.loading === true
               ? null
               :
               <div>
-                <Route path='/' exact component={CategoryPage} />
+                <Route path='/' exact component={Dashboard} />
+                <Route path='/categories/:path' component={CategoryPage} />
+                <Route path='/categories/:path/:postId' component={CategoryPage} />
               </div>
             }
           </div>
