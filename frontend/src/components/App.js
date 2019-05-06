@@ -5,6 +5,7 @@ import { handleInitialData } from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Dashboard  from './Dashboard'
 import CategoryPage from "./CategoryPage";
+import PostPage from "./PostPage";
 import Nav from './Nav'
 
 import '../App.css';
@@ -30,7 +31,7 @@ class App extends Component {
               <div>
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/categories/:path' component={CategoryPage} />
-                <Route path='/categories/:path/:postId' component={CategoryPage} />
+                <Route path='/categories/:path/:postId' component={PostPage} />
               </div>
             }
           </div>

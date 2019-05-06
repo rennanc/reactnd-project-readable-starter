@@ -11,7 +11,7 @@ class Post extends Component {
             <h5 className="card-title">{post.title}</h5>
             <h6 className="card-subtitle mb-2 text-muted">@{post.author} - {formatDate(post.timestamp)}</h6>
             <p className="card-text">{post.body}</p>
-            <Link to='' className='card-link'>Comment ({post.commentCount})</Link>
+            <Link to={`/categories/${post.category}/${post.id}`} className='card-link'>Comment ({post.commentCount})</Link>
             <Link to='' className='card-link'>Vote ({post.voteScore})</Link>
         </div>
     )
