@@ -25,13 +25,15 @@ class App extends Component {
           <LoadingBar />
           <div className="App container-fluid">
             <Nav />
+            <br/>
             {this.props.loading === true
               ? null
               :
               <div>
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/categories/:path' component={CategoryPage} />
-                <Route path='/categories/:path/:postId' component={PostPage} />
+                <Route path='/categories/:path' exact component={CategoryPage} />
+                <Route path='/categories/:path/:postId' exact component={PostPage} />
+                <Route path='/categories/:path/newPost' exact component={PostPage} />
               </div>
             }
           </div>

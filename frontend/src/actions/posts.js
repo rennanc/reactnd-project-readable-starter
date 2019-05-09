@@ -4,7 +4,7 @@ import { getCatPost } from "../utils/api"
 
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 
- function receivePostsByCategory(posts) {
+function receivePostsByCategory(posts) {
     return {
         type: RECEIVE_POSTS_BY_CATEGORY,
         posts,

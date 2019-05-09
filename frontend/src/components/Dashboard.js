@@ -8,9 +8,11 @@ class Dashboard extends Component {
     
     return (
       <div>
-        <ul className='category-list'>
+        <ul className='category-list list-group list-group-horizontal-md'>
           {this.props.categoryNames.map((name) => (
-            <Category key={name} name={name} />
+            <li className="list-group-item" key={name}>
+              <Category key={name} name={name} />
+            </li>
           ))}
         </ul>
       </div>

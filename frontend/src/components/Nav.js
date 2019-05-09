@@ -11,12 +11,12 @@ export default function Nav () {
       <div className='collapse navbar-collapse' id="navbarNav">
         <ul className='navbar-nav'>
           <li className='nav-item'>
-            <NavLink to='/' exact activeClassName='active'>
+            <NavLink to={`/`} exact activeClassName='active'>
               Home
             </NavLink>
           </li>
           <li className='nav-item'>
-            <NavLink to='/categories' activeClassName='active'>
+            <NavLink to={`/categories`} activeClassName='active'>
               Categories
             </NavLink>
           </li>
