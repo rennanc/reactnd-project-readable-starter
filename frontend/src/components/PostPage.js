@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleReceiveCommentsByPost } from '../actions/comments'
+import { withRouter } from 'react-router-dom'
+import { handleReceivePost } from '../actions/posts'
 import Post from './Post'
 import Comment from './Comment'
 
@@ -8,6 +10,7 @@ class PostPage extends Component {
 
   componentDidMount(){
     this.props.dispatch(handleReceiveCommentsByPost(this.props.match.params.postId))
+    //this.props.dispatch(handleReceivePost(this.props.match.params.postId))
   }
 
   render() {
@@ -15,17 +18,17 @@ class PostPage extends Component {
     return (
         <div>
         {
-          post !== undefined && (
+          post !== undefined && post !== null && (
             <Post id={post.id} />
           )
         }
-        {comments.map((comment) => (
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <Comment id={comment.id} />
-            </li>
-          </ul>
-        ))}
+        <ul className="list-group list-group-flush">
+          {comments.map((comment) => (
+              <li key={comment.id} className="list-group-item">
+                <Comment id={comment.id} />
+              </li>
+          ))}
+        </ul>
         </div>
         
     )
@@ -33,11 +36,11 @@ class PostPage extends Component {
 }
 
 
-function mapStateToProps({ posts, comments}) {
+function mapStateToProps({ posts, comments}, router) {
     return {
-      post: posts[0],
+      post: Object.keys(posts).length > 0 ? posts : null,
       comments: Object.values(comments),
     }
 }
 
-export default connect(mapStateToProps)(PostPage);
+export default withRouter(connect(mapStateToProps)(PostPage));

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleReceivePostsByCategory } from '../actions/posts'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Post from './Post'
 
 
@@ -33,7 +33,7 @@ class CategoryPage extends Component {
                   </Link>
                 </div>
                 <div className="col form-group">
-                  <label for="orderPosts">Order By</label>
+                  <label htmlFor="orderPosts">Order By</label>
                   <select className="form-control" id="orderPosts">
                     <option>New</option>
                     <option>Rising</option>

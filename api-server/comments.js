@@ -31,7 +31,7 @@ function getData (token) {
   if (data == null) {
     data = db[token] = clone(defaultData)
   }
-  return data7
+  return data
 }
 
 function getByParent (token, parentId) {

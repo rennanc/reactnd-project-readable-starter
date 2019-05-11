@@ -6,6 +6,7 @@ import LoadingBar from 'react-redux-loading'
 import Dashboard  from './Dashboard'
 import CategoryPage from "./CategoryPage";
 import PostPage from "./PostPage";
+import NewPost from "./NewPost";
 import Nav from './Nav'
 
 import '../App.css';
@@ -33,7 +34,8 @@ class App extends Component {
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/categories/:path' exact component={CategoryPage} />
                 <Route path='/categories/:path/:postId' exact component={PostPage} />
-                <Route path='/categories/:path/newPost' exact component={PostPage} />
+                <Route path='/categories/:path/newPost' exact component={NewPost} />
+                {/*<Route path='/categories/:path/newPost' exact component={PostPage} />*/}
               </div>
             }
           </div>
