@@ -2,9 +2,18 @@ import { showLoading, hideLoading } from 'react-redux-loading'
 import { getCatPost, getPost, addPost } from "../utils/api"
 
 
+export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const CREATE_POST = 'RECEIVE_POST'
+
+
+export function receivePosts(posts){
+    return {
+        type: RECEIVE_POSTS,
+        posts,
+    }
+}
 
 function receivePostsByCategory(posts) {
     return {

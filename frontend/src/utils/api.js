@@ -13,8 +13,10 @@ const headers = {
 export function getInitialData () {
   return Promise.all([
     getAllCategories(),
-  ]).then(([categories]) => ({
+    getAllPost()
+  ]).then(([categories, posts]) => ({
     categories,
+    posts
   }))
 }
 

@@ -32,10 +32,9 @@ class App extends Component {
               :
               <div>
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/categories/:path' exact component={CategoryPage} />
-                <Route path='/categories/:path/:postId' exact component={PostPage} />
-                <Route path='/categories/:path/newPost' exact component={NewPost} />
-                {/*<Route path='/categories/:path/newPost' exact component={PostPage} />*/}
+                <Route path='/categories/:category' exact component={CategoryPage} />
+                <Route path='/categories/:category/posts/:postId' exact component={PostPage} />
+                <Route path='/categories/:category/newPost' exact component={NewPost} />
               </div>
             }
           </div>

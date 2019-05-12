@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreatePost } from '../actions/posts'
 import { Redirect } from "react-router-dom";
+import { generateUID } from '../utils/helpers'
 
 class NewPost extends Component{
 
@@ -9,9 +10,9 @@ class NewPost extends Component{
         post : {
             title: '',
             body: '',
-            category: 'react',
-            author: 'some',
-            id: '6'
+            category: this.props.match.params.category,
+            author: 'rennanc',
+            id: generateUID(),
         },
         toHome: false,
     }
@@ -77,7 +78,7 @@ class NewPost extends Component{
                             required
                         />
                     </div>
-                    <div class="form-row ">
+                    <div className="form-row ">
                         <textarea 
                             value={post.body}
                             className="form-control col"

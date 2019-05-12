@@ -8,7 +8,7 @@ import Post from './Post'
 class CategoryPage extends Component {
 
   componentDidMount(){
-    this.props.dispatch(handleReceivePostsByCategory(this.props.match.params.path))
+    //this.props.dispatch(handleReceivePostsByCategory(this.props.match.params.category))
   }
 
   render(){
@@ -19,7 +19,7 @@ class CategoryPage extends Component {
         {
           category !== undefined &&
           (
-            <div>
+            <div key={category.name}>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item"><Link to='/'>Home</Link></li>
@@ -40,13 +40,9 @@ class CategoryPage extends Component {
                   </select>
                 </div>
               </div>
-              <hr/>
-              <div className="card" >
-                  {posts != null && posts.map((post) => (
-                    <Post post={post} key={post.id} />
-                  ))
-                  }
-              </div>
+              {posts != null && posts.map((post) => (
+                <Post post={post} key={post.id} />
+              ))}
             </div>
           )
         }
@@ -59,18 +55,16 @@ function mapStateToProps({categories, posts}, router) {
 
   //category
   const categoriesList = Object.values(categories);
-  const category = categoriesList.filter(c => c.path === router.match.params.path)
+  const category = categoriesList.filter((c) => c.path === router.match.params.category).shift()
 
-  var postsFiltered;
-  if(category != null && category.length > 0){
-    postsFiltered = Object.values(posts).filter(p => p.category === category[0].path)
+  if(category != null){
+    const postsFiltered = Object.values(posts).filter((p) => p.category === category.path)
+    return {
+      category: category,
+      posts: postsFiltered,
+    }
   }
-
-
-  return {
-    category: category,
-    posts: postsFiltered,
-  }
+  return {}
 }
 
 export default connect(mapStateToProps)(CategoryPage);

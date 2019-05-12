@@ -1,4 +1,5 @@
 import { 
+    RECEIVE_POSTS,
     RECEIVE_POSTS_BY_CATEGORY,
     RECEIVE_POST,
     CREATE_POST
@@ -6,6 +7,11 @@ import {
 
 export default function posts(state = {}, action) {
     switch (action.type) {
+        case RECEIVE_POSTS:
+            return {
+                ...state,
+                ...action.posts,
+        }
         case RECEIVE_POSTS_BY_CATEGORY:
             return {
                 ...state,
