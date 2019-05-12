@@ -42,8 +42,8 @@ class CategoryPage extends Component {
               </div>
               <hr/>
               <div className="card" >
-                  {posts.map((post) => (
-                    <Post id={post.id} key={post.id} />
+                  {posts != null && posts.map((post) => (
+                    <Post post={post} key={post.id} />
                   ))
                   }
               </div>
@@ -61,9 +61,15 @@ function mapStateToProps({categories, posts}, router) {
   const categoriesList = Object.values(categories);
   const category = categoriesList.filter(c => c.path === router.match.params.path)
 
+  var postsFiltered;
+  if(category != null && category.length > 0){
+    postsFiltered = Object.values(posts).filter(p => p.category === category[0].path)
+  }
+
+
   return {
-    category: category[0],
-    posts: Object.values(posts),
+    category: category,
+    posts: postsFiltered,
   }
 }
 

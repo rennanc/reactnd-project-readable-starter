@@ -20,7 +20,7 @@ class Comment extends Component{
               <h6 className="mb-1">@{comment.author}</h6>
               <small>{formatDate(comment.timestamp)}</small>
             </div>
-            <p class="mb-1">{comment.body}</p>
+            <p className="mb-1">{comment.body}</p>
           </div>
         </div>
         <hr/>
@@ -30,9 +30,9 @@ class Comment extends Component{
   }
 }
 
-function mapStateToProps({comments}, { id }) {
+function mapStateToProps({comments}, { id, parentId }) {
   return {
-    comment: Object.values(comments).filter((c) => c.id === id)[0]
+    comment: Object.values(comments).filter((c) => c.id === id && c.parentId === parentId)[0]
   }
 }
 

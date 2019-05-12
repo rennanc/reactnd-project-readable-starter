@@ -17,9 +17,9 @@ export default function posts(state = {}, action) {
                 ...action.post
             }
         case CREATE_POST:
-            const { post } = action
+            //const { post } = action
 
-            let replyingTo = {}
+            //let replyingTo = {}
             
             /*if(post.replyingTo !== null){
                 replyingTo = {
