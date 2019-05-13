@@ -3,20 +3,40 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import { formatDate } from '../utils/helpers'
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { handleVotePost } from '../actions/posts'
+
+const UP_VOTE = 'upVote'
+const DOWN_VOTE = 'downVote'
 
 class Post extends Component {
 
+  handleVote = (e, vote) => {
+    const { post } = this.props
+    this.props.dispatch(handleVotePost(post.id, vote))
+  }
+
   render() {
     const { post } = this.props
+    console.log("state aqui")
+    console.log(this.state)
     return (
       <div className="card" >
         <div  className="card-body">
           { post != null && (
             <div className="row">
             <div className="col-1 text-center">
-              <div><Link to="/"><GoArrowUp /></Link></div>
+              <button 
+                type="button"
+                className="btn btn-link"
+                onClick={(e) => this.handleVote(e, UP_VOTE)}
+                ><GoArrowUp /></button>
               <div className="text-nowrap">{post.voteScore}</div>
-              <div><Link to="/"><GoArrowDown /></Link></div>
+              <button 
+              type="button" 
+              className="btn btn-link"
+              onClick={(e) => this.handleVote(e, DOWN_VOTE)}
+              >
+              <GoArrowDown /></button>
             </div>
             <div className="col col-auto">
               <h5 className="card-title">{post.title}</h5>

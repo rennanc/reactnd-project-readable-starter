@@ -2,7 +2,8 @@ import {
     RECEIVE_POSTS,
     RECEIVE_POSTS_BY_CATEGORY,
     RECEIVE_POST,
-    CREATE_POST
+    CREATE_POST,
+    VOTE_POST
  } from '../actions/posts'
 
 export default function posts(state = {}, action) {
@@ -40,6 +41,11 @@ export default function posts(state = {}, action) {
                 ...state,
                 [action.posts.id]: action.post,
                 //...replyingTo,
+            }
+        case VOTE_POST:
+            return {
+                ...state,
+                ...action.post
             }
         default:
             return state
