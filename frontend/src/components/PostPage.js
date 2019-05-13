@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleReceiveCommentsByPost } from '../actions/comments'
 import { handleReceivePost } from '../actions/posts'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Post from './Post'
 import Comment from './Comment'
 
@@ -17,18 +17,23 @@ class PostPage extends Component {
     const { post, comments } = this.props
     return (
         <div>
-        {
-          post !== undefined && post !== null && (
-            <Post post={post} />
-          )
-        }
-        <ul className="list-group list-group-flush">
-          {comments != null && comments.map((comment) => (
-              <li key={comment.id} className="list-group-item">
-                <Comment id={comment.id} parentId={comment.parentId} />
-              </li>
-          ))}
-        </ul>
+          {
+            post !== undefined && post !== null && (
+              <div>
+                <Post post={post} />
+                <Link to={`/categories/${post.category}/posts/${post.id}/newComment`}>
+                  <button type="button" className="btn btn-primary">Add Comment</button>
+                </Link>
+              </div>
+            )
+          }
+          <ul className="list-group list-group-flush">
+            {comments != null && comments.map((comment) => (
+                <li key={comment.id} className="list-group-item">
+                  <Comment id={comment.id} parentId={comment.parentId} />
+                </li>
+            ))}
+          </ul>
         </div>
         
     )

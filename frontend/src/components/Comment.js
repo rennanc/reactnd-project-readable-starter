@@ -15,16 +15,21 @@ class Comment extends Component{
             <div>{comment.voteScore}</div>
             <div><Link to="/"><GoArrowDown /></Link></div>
           </div>
-          <div className="col col-auto">
-            <div className="d-flex w-100 justify-content-between">
-              <h6 className="mb-1">@{comment.author}</h6>
-              <small>{formatDate(comment.timestamp)}</small>
+          <div>
+            <div className="col col-auto">
+              <div className="d-flex w-100 justify-content-between">
+                <h6 className="mb-1">@{comment.author}</h6>
+                <small>{formatDate(comment.timestamp)}</small>
+              </div>
+              <p className="mb-1">{comment.body}</p>
             </div>
-            <p className="mb-1">{comment.body}</p>
+            <div className="row ">
+              <Link className="card-link" to="/">Reply</Link>
+              <Link className="card-link" to="/">Edit</Link>
+              <Link className="card-link" to="/">Delete</Link>
+            </div>
           </div>
         </div>
-        <hr/>
-        <div className="col"><Link to="/">Reply</Link></div>
       </div>
     )
   }
