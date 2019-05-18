@@ -11,7 +11,6 @@ class NewPost extends Component{
             title: '',
             body: '',
             category: this.props.match.params.category,
-            author: 'rennanc',
             id: generateUID(),
         },
         toHome: false,

@@ -17,8 +17,6 @@ class Post extends Component {
 
   render() {
     const { post } = this.props
-    console.log("state aqui")
-    console.log(this.state)
     return (
       <div className="card" >
         <div  className="card-body">

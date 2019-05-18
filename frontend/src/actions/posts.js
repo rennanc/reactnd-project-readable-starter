@@ -65,10 +65,15 @@ function createPost(post){
 
 export function handleCreatePost(id, post) {
     return (dispatch, getState) => {
+        const { authedUser } = getState()
 
         dispatch(showLoading())
 
-        post.timestamp = Math.floor(Date.now())
+        post = {
+            ...post,
+            timestamp: Math.floor(Date.now()),
+            author: authedUser
+        }
 
         return addPost(id, post)
                 .then((post) => dispatch(createPost(post)))
