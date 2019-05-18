@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { getCatPost, getPost, addPost, voteChange } from "../utils/api"
+import { getCatPost, getPost, addPost, voteChange, deletePost, updatePost } from "../utils/api"
 
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -7,6 +7,8 @@ export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
 export const RECEIVE_POST = 'RECEIVE_POST'
 export const CREATE_POST = 'RECEIVE_POST'
 export const VOTE_POST = 'VOTE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
 
 
 export function receivePosts(posts){
@@ -96,6 +98,37 @@ export function handleVotePost(postId, vote){
         return voteChange(postId, vote, "posts")
             .then((post) => {
                 dispatch(votePost(post))
+                dispatch(hideLoading())
+            })
+    }
+}
+
+export function editPost ({post, postType}){
+    return {
+      type: UPDATE_POST,
+      postType,
+      post
+    }
+}
+
+export function handleUpdatePost(id, post){
+    return (dispatch) => {
+        dispatch(showLoading())
+
+        return updatePost(id, post).then(post => {
+            dispatch(hideLoading())
+        })
+    }
+}
+
+export function handleDeletePost(postId){
+    return (dispatch) => {
+
+        dispatch(showLoading())
+
+        return deletePost(postId)
+            .then((post) => {
+                dispatch(editPost({post}))
                 dispatch(hideLoading())
             })
     }

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import { formatDate } from '../utils/helpers'
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
-import { handleVotePost } from '../actions/posts'
+import { handleVotePost, handleDeletePost } from '../actions/posts'
 
 const UP_VOTE = 'upVote'
 const DOWN_VOTE = 'downVote'
@@ -11,8 +11,13 @@ const DOWN_VOTE = 'downVote'
 class Post extends Component {
 
   handleVote = (e, vote) => {
-    const { post } = this.props
-    this.props.dispatch(handleVotePost(post.id, vote))
+    const { post, dispatch } = this.props
+    dispatch(handleVotePost(post.id, vote))
+  }
+
+  handleRemovePost = (e) => {
+    const { post, dispatch } = this.props
+    dispatch(handleDeletePost(post.id))
   }
 
   render() {
@@ -40,9 +45,13 @@ class Post extends Component {
               <h5 className="card-title">{post.title}</h5>
               <h6 className="card-subtitle mb-2 text-muted">@{post.author} - {formatDate(post.timestamp)}</h6>
               <p className="card-text">{post.body}</p>
-              <Link to={`/categories/${post.category}/posts/${post.id}`}  className='card-link'>Comment ({post.commentCount})</Link>
-              <Link to={`/categories/${post.category}/posts/${post.id}`}  className='card-link'>Edit</Link>
-              <Link to={`/categories/${post.category}/posts/${post.id}`}  className='card-link'>Delete</Link>
+              <Link to={`/categories/${post.category}/posts/${post.id}`}>
+                <button  className='card-link btn btn-link'>Comment ({post.commentCount})</button>
+              </Link>
+              <Link to={`/categories/${post.category}/posts/${post.id}`}>
+                <button  className='card-link btn btn-link'>Edit</button>
+              </Link>
+              <button className='card-link btn btn-link' onClick={(e) => this.handleRemovePost(e)}>Delete</button>
             </div>
           </div>
           )}
