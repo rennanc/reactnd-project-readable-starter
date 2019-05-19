@@ -6,18 +6,20 @@ import Post from './Post'
 class Dashboard extends Component {
   render(){
     console.log(this.props)
+
+    const { posts, categoryNames } = this.props
     
     return (
       <div>
         <ul className='category-list list-group list-group-horizontal-md'>
-          {this.props.categoryNames.map((name) => (
+          {categoryNames.map((name) => (
             <li className="list-group-item" key={name}>
               <Category key={name} name={name} />
             </li>
           ))}
         </ul>
         <ul className='category-list list-group list-group-flush'>
-          {this.props.posts.map((post) => (
+          {posts.map((post) => (
             <li className="list-group-item" key={post.id}>
               <Post post={post} key={post.id}  />
             </li>

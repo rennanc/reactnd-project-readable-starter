@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreateComment } from '../actions/comments'
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+import { browserHistory } from 'react-router'
 import { generateUID } from '../utils/helpers'
 
 class NewComment extends Component{
@@ -60,7 +61,8 @@ class NewComment extends Component{
         const { comment, toHome } = this.state
 
         if(toHome === true){
-            return <Redirect to='/' />
+            const redirectUrl = this.props.location.pathname.replace('/newComment','')
+            return <Redirect to={redirectUrl} />
         }
 
         return (
@@ -91,4 +93,4 @@ class NewComment extends Component{
     }
 }
 
-export default connect()(NewComment);
+export default withRouter(connect()(NewComment));

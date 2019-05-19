@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleCreatePost } from '../actions/posts'
+import { handleCreatePost, handleUpdatePost } from '../actions/posts'
 import { Redirect } from "react-router-dom";
 
 class PostForm extends Component{
@@ -70,24 +70,29 @@ class PostForm extends Component{
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const { dispatch, id } = this.props
+        const { dispatch } = this.props
+        const { post, isEdit } = this.state
 
-        const { post } = this.state
-
-        dispatch(handleCreatePost(id, post))
+        if(isEdit){
+            dispatch(handleUpdatePost(post.id, post))
+        }else{
+            dispatch(handleCreatePost(post))
+        }
 
         this.setState(() => ({
             post: post,
-           toHome: id ? false : true,
+           toHome: post.id ? false : true,
         }))
     }
 
         
     render() {
-        const { post, toHome } = this.state
+        const { post, toHome, isEdit } = this.state
 
-        if(toHome === true){
+        if(toHome === true && !isEdit){
             return <Redirect to='/' />
+        }else if(toHome === true && isEdit){
+            return <Redirect go={-1} />
         }
 
         return (

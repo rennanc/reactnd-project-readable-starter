@@ -7,3 +7,12 @@ export function formatDate (timestamp) {
 export function generateUID () {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
+
+export function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
