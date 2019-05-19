@@ -6,7 +6,7 @@ import LoadingBar from 'react-redux-loading'
 import Dashboard  from './Dashboard'
 import CategoryPage from "./CategoryPage";
 import PostPage from "./PostPage";
-import NewPost from "./NewPost";
+import PostForm from "./PostForm";
 import NewComment from "./NewComment";
 import Nav from './Nav'
 
@@ -15,7 +15,7 @@ import '../App.css';
 
 class App extends Component {
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.dispatch(handleInitialData())
   }
 
@@ -35,8 +35,9 @@ class App extends Component {
                 <Route path='/' exact component={Dashboard} />
                 <Route path='/categories/:category' exact component={CategoryPage} />
                 <Route path='/categories/:category/posts/:postId' component={PostPage} />
+                <Route path='/categories/:category/posts/:postId/edit' component={PostForm} />
                 <Route path='/categories/:category/posts/:postId/newComment' component={NewComment} />
-                <Route path='/categories/:category/newPost' exact component={NewPost} />
+                <Route path='/categories/:category/newPost' exact component={PostForm} />
               </div>
             }
           </div>

@@ -73,7 +73,7 @@ class NewComment extends Component{
                             value={comment.body}
                             className="form-control col"
                             onChange={this.handleChangeBody}
-                            id="newPostTextArea"
+                            id="postFormTextArea"
                             rows="8"
                             placeholder="Write a New Post"
                             required

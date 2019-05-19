@@ -48,7 +48,7 @@ class Post extends Component {
               <Link to={`/categories/${post.category}/posts/${post.id}`}>
                 <button  className='card-link btn btn-link'>Comment ({post.commentCount})</button>
               </Link>
-              <Link to={`/categories/${post.category}/posts/${post.id}`}>
+              <Link to={`/categories/${post.category}/posts/${post.id}/edit`}>
                 <button  className='card-link btn btn-link'>Edit</button>
               </Link>
               <button className='card-link btn btn-link' onClick={(e) => this.handleRemovePost(e)}>Delete</button>

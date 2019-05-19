@@ -2,18 +2,46 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreatePost } from '../actions/posts'
 import { Redirect } from "react-router-dom";
-import { generateUID } from '../utils/helpers'
 
-class NewPost extends Component{
+class PostForm extends Component{
 
     state = {
         post : {
             title: '',
             body: '',
             category: this.props.match.params.category,
-            id: generateUID(),
         },
+        isEdit: false,
         toHome: false,
+    }
+
+    componentDidMount() {
+        const { post } = this.props
+        const { postId, category } = this.props.match.params
+        if(postId != null && post != null){
+            this.setState(() => ({
+                post: post,
+                isEdit: true
+            }))
+        }else{
+            this.setState((prevState) => ({
+                post: {
+                    ...prevState.post,
+                    category: category
+                }
+            }))
+        }
+    }
+
+    getIntentTitle(){
+        const { isEdit } = this.state
+        var title = 'New Post'
+        if(isEdit){
+            title = 'Edit Post'
+        }
+        return (
+            <legend>{title}</legend>
+        )
     }
 
 
@@ -63,15 +91,16 @@ class NewPost extends Component{
         }
 
         return (
-        <div className="newPost ">
+        <div className="postForm ">
             <form className="form-group" onSubmit={this.handleSubmit}>
                 <fieldset >
-                    <legend>New Post</legend>
+                    {this.getIntentTitle()}
                     <div className="form-row">
                         <input 
+                            controlled="true"
                             value={post.title}
                             onChange={this.handleChangeTitle}
-                            id="newPostTitle"
+                            id="postFormTitle"
                             placeholder="Title"
                             className="col form-control form-control-lg"
                             required
@@ -79,6 +108,7 @@ class NewPost extends Component{
                     </div>
                     <div className="form-row ">
                         <textarea 
+                            controlled="true"
                             value={post.body}
                             className="form-control col"
                             onChange={this.handleChangeBody}
@@ -92,7 +122,7 @@ class NewPost extends Component{
                     <button 
                     type="submit"
                     className="btn btn-primary"
-                    disabled={post.body === '' && post.title === ''}>Post</button>
+                    disabled={post.body === '' || post.title === ''}>Post</button>
                 </fieldset>
              </form>
         </div>
@@ -100,4 +130,15 @@ class NewPost extends Component{
     }
 }
 
-export default connect()(NewPost);
+
+function mapStateToProps({ posts }, router) {
+ 
+    if(posts != null){
+      return {
+        post: Object.values(posts).filter((p) =>  p.id === router.match.params.postId).shift(),
+      }
+    }
+    return {}
+  }
+
+export default connect(mapStateToProps)(PostForm);

@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { getCatPost, getPost, addPost, voteChange, deletePost, updatePost } from "../utils/api"
+import { generateUID } from '../utils/helpers'
 
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -73,6 +74,7 @@ export function handleCreatePost(id, post) {
 
         post = {
             ...post,
+            id: generateUID(),
             timestamp: Math.floor(Date.now()),
             author: authedUser
         }
