@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { getCatPost, getPost, addPost, voteChange, deletePost, updatePost } from "../utils/api"
-import { generateUID, findWithAttr } from '../utils/helpers'
+import { generateUID } from '../utils/helpers'
 
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'

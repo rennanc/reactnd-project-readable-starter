@@ -8,7 +8,7 @@ import {
     VOTE_POST
  } from '../actions/posts'
 
-export default function posts(state = {}, action) {
+export default function posts(state = { posts: []}, action) {
     switch (action.type) {
         case RECEIVE_POSTS:
             return {
@@ -28,7 +28,7 @@ export default function posts(state = {}, action) {
         case CREATE_POST:
             return {
                 ...state,
-                [action.posts.id]: action.post,
+                [action.post.id]: action.post,
             }
         case DELETE_POST:
             return {
@@ -40,21 +40,15 @@ export default function posts(state = {}, action) {
         case UPDATE_POST:
             return {
                 ...state,
-                ...action.post
+                ...action.post,
             }
         case VOTE_POST:
-            return {
-                ...state,
-                ...action.post,
-                action:{
-                    posts: Object.values(state).map((p) => {
-                        if (p.id === action.post.id) {
-                          return action.post;
-                        }
-                        return p;
-                    })
-                }
-            }
+            return Object.assign({},Object.values(state).map((p) => {
+                    if (p.id === action.post.id) {
+                        return action.post;
+                    }
+                    return p;
+                }))
         default:
             return state
     }

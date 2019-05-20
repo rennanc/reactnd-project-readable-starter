@@ -3,17 +3,41 @@ import { connect } from "react-redux";
 import { formatDate } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
+import { handleDeleteComment, handleVoteComment } from '../actions/comments'
+
+const UP_VOTE = 'upVote'
+const DOWN_VOTE = 'downVote'
 
 class Comment extends Component{
-  render() {
+
+  handleVote = (e, vote) => {
+    const { comment, dispatch } = this.props
+    dispatch(handleVoteComment(comment.id, vote))
+  }
+
+  handleRemoveComment = (e) => {
+    const { comment, dispatch } = this.props
+    dispatch(handleDeleteComment(comment.id))
+  }
+
+  render(){
     const { comment } = this.props
     return (
       <div className="Comment ">
         <div className="row">
           <div className="col-1 text-center">
-            <div><Link to="/"><GoArrowUp /></Link></div>
-            <div>{comment.voteScore}</div>
-            <div><Link to="/"><GoArrowDown /></Link></div>
+              <button 
+                type="button"
+                className="btn btn-link"
+                onClick={(e) => this.handleVote(e, UP_VOTE)}
+                ><GoArrowUp /></button>
+              <div className="text-nowrap">{comment.voteScore}</div>
+              <button 
+              type="button" 
+              className="btn btn-link"
+              onClick={(e) => this.handleVote(e, DOWN_VOTE)}
+              >
+              <GoArrowDown /></button>
           </div>
           <div>
             <div className="col col-auto">
@@ -24,9 +48,10 @@ class Comment extends Component{
               <p className="mb-1">{comment.body}</p>
             </div>
             <div className="row ">
-              <Link className="card-link" to="/">Reply</Link>
-              <Link className="card-link" to="/">Edit</Link>
-              <Link className="card-link" to="/">Delete</Link>
+              <Link to={`/categories/4343/posts/32432432/comment/dadasdas/edit`}>
+                <button  className='card-link btn btn-link'>Edit</button>
+              </Link>
+              <button className='card-link btn btn-link' onClick={(e) => this.handleRemoveComment(e)}>Delete</button>
             </div>
           </div>
         </div>

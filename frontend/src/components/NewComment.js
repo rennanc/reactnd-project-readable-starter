@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreateComment } from '../actions/comments'
 import { Redirect, withRouter } from "react-router-dom";
-import { browserHistory } from 'react-router'
 import { generateUID } from '../utils/helpers'
 
 class NewComment extends Component{
@@ -12,8 +11,6 @@ class NewComment extends Component{
             title: '',
             body: '',
             parentId: this.props.match.params.postId,
-            author: 'rennanc',
-            id: generateUID(),
         },
         toHome: false,
     }
