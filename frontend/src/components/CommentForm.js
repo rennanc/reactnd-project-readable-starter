@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreateComment } from '../actions/comments'
 import { Redirect, withRouter } from "react-router-dom";
-import { generateUID } from '../utils/helpers'
 
-class NewComment extends Component{
+class CommentForm extends Component{
 
     state = {
         comment : {
@@ -63,7 +62,7 @@ class NewComment extends Component{
         }
 
         return (
-        <div className="newComment ">
+        <div className="commentForm ">
             <form className="form-group" onSubmit={this.handleSubmit}>
                 <fieldset >
                     <legend>New Comment</legend>
@@ -72,7 +71,7 @@ class NewComment extends Component{
                             value={comment.body}
                             className="form-control col"
                             onChange={this.handleChangeBody}
-                            id="postFormTextArea"
+                            id="commentFormTextArea"
                             rows="8"
                             placeholder="Write a New Post"
                             required
@@ -90,4 +89,4 @@ class NewComment extends Component{
     }
 }
 
-export default withRouter(connect()(NewComment));
+export default withRouter(connect()(CommentForm));

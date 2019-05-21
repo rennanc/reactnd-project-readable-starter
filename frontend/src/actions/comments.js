@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { getComments, addComment, voteChange, deleteComment } from "../utils/api"
+import { getComments, addComment, voteChange, deleteComment, updateComment } from "../utils/api"
 import { generateUID } from '../utils/helpers'
 
 export const RECEIVE_COMMENTS_BY_POST = 'RECEIVE_COMMENTS_BY_POST'
@@ -98,5 +98,16 @@ function editComment({comment}){
     return {
       type: UPDATE_COMMENT,
       comment
+    }
+}
+
+export function handleUpdatePost(id, comment){
+    return (dispatch) => {
+        dispatch(showLoading())
+
+        return updateComment(id, comment).then(comment => {
+            dispatch(editComment({comment}))
+            dispatch(hideLoading())
+        })
     }
 }
