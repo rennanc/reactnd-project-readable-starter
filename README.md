@@ -2,13 +2,13 @@
 
 This project was elaborated to the Udacity Test, in this project you can see a project with a structure of project for React with Redux. 
 
-Instruction to Use:
-    - `cd frontend`
-    - `yarn`
-    - `yarn start`
+## Instruction to Use:
+ - `cd frontend`
+ - `yarn`
+ - `yarn start`
 
 
-Navigation:
+## Navigation:
 
 * Dashboard - "/"
   The dashboard show all posts registered in the project without apply category filter.
