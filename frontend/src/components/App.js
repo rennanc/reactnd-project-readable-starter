@@ -33,7 +33,7 @@ class App extends Component {
               :
               <div>
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/categories/:category' component={CategoryPage} />
+                <Route path='/categories/:category' exact component={CategoryPage} />
                 <Route path='/categories/:category/posts/:postId' component={PostPage} />
                 <Route path='/categories/:category/posts/:postId/edit' component={PostForm} />
                 <Route path='/categories/:category/posts/:postId/newComment' component={CommentForm} />
