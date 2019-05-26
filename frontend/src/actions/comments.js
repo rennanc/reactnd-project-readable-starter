@@ -35,20 +35,22 @@ function createComment(comment){
     }
 }
 
-export function handleCreateComment(id, comment) {
+export function handleCreateComment(comment) {
     return (dispatch, getState) => {
         const { authedUser } = getState()
         
         dispatch(showLoading())
 
+        const idGenerated = generateUID();
+
         comment = {
             ...comment,
-            id: generateUID(),
+            id: idGenerated,
             timestamp: Math.floor(Date.now()),
             author: authedUser
         }
 
-        return addComment(id, comment)
+        return addComment(idGenerated, comment)
                 .then((comment) => dispatch(createComment(comment)))
                 .then(() => dispatch(hideLoading()))
     }
@@ -101,11 +103,11 @@ function editComment({comment}){
     }
 }
 
-export function handleUpdatePost(id, comment){
+export function handleUpdateComment(id, comment){
     return (dispatch) => {
         dispatch(showLoading())
 
-        return updateComment(id, comment).then(comment => {
+        return updateComment(id, comment.body).then(comment => {
             dispatch(editComment({comment}))
             dispatch(hideLoading())
         })

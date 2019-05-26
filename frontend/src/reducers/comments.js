@@ -28,10 +28,12 @@ export default function comments(state = {}, action) {
                     return c;
                 }))
         case UPDATE_COMMENT:
-            return {
-                ...state,
-                [action.comment.id]: action.comment,
-            }
+            return Object.assign({},Object.values(state).map((c) => {
+                if (c.id === action.comment.id) {
+                    return action.comment;
+                }
+                return c;
+            }))
         default:
             return state
     }

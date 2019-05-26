@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { formatDate } from '../utils/helpers'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { handleDeleteComment, handleVoteComment } from '../actions/comments'
 
@@ -48,7 +48,7 @@ class Comment extends Component{
               <p className="mb-1">{comment.body}</p>
             </div>
             <div className="row ">
-              <Link to={`/categories/4343/posts/32432432/comment/dadasdas/edit`}>
+              <Link to={`${this.props.location.pathname}/comment/${comment.id}/edit`}>
                 <button  className='card-link btn btn-link'>Edit</button>
               </Link>
               <button className='card-link btn btn-link' onClick={(e) => this.handleRemoveComment(e)}>Delete</button>
@@ -66,4 +66,4 @@ function mapStateToProps({comments}, { id, parentId }) {
   }
 }
 
-export default connect(mapStateToProps)(Comment);
+export default withRouter(connect(mapStateToProps)(Comment));

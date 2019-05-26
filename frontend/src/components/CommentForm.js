@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleCreateComment } from '../actions/comments'
+import { handleCreateComment, handleUpdateComment } from '../actions/comments'
 import { Redirect, withRouter } from "react-router-dom";
 
 class CommentForm extends Component{
@@ -11,7 +11,26 @@ class CommentForm extends Component{
             body: '',
             parentId: this.props.match.params.postId,
         },
+        isEdit: false,
         toHome: false,
+    }
+
+    componentDidMount() {
+        const { comment } = this.props
+        const { commentId, postId } = this.props.match.params
+        if(commentId != null && comment != null && postId != null){
+            this.setState(() => ({
+                comment: comment,
+                isEdit: true
+            }))
+        }else{
+            this.setState((prevState) => ({
+                comment: {
+                    ...prevState.comment,
+                    parentId: postId
+                }
+            }))
+        }
     }
 
 
@@ -26,15 +45,15 @@ class CommentForm extends Component{
         }))
     }
 
-    handleChangeTitle = (e) => {
-        const title = e.target.value
-
-        this.setState((prevState) => ({
-            comment : {
-                ...prevState.comment,
-                title : title
-            }
-        }))
+    getIntentTitle(){
+        const { isEdit } = this.state
+        var title = 'New Comment'
+        if(isEdit){
+            title = 'Edit Comment'
+        }
+        return (
+            <legend>{title}</legend>
+        )
     }
 
 
@@ -42,9 +61,13 @@ class CommentForm extends Component{
         e.preventDefault()
         const { dispatch, id } = this.props
 
-        const { comment } = this.state
+        const { comment, isEdit } = this.state
 
-        dispatch(handleCreateComment(id, comment))
+        if(isEdit){
+            dispatch(handleUpdateComment(comment.id, comment))
+        }else{
+            dispatch(handleCreateComment(comment))
+        }
 
         this.setState(() => ({
             comment: comment,
@@ -54,10 +77,13 @@ class CommentForm extends Component{
 
         
     render() {
-        const { comment, toHome } = this.state
+        const { comment, toHome, isEdit } = this.state
 
-        if(toHome === true){
+        if(toHome === true && !isEdit){
             const redirectUrl = this.props.location.pathname.replace('/newComment','')
+            return <Redirect to={redirectUrl} />
+        }else if(toHome === true && isEdit){
+            const redirectUrl = this.props.location.pathname.replace('/comment/'+ comment.id + '/edit','')
             return <Redirect to={redirectUrl} />
         }
 
@@ -65,7 +91,7 @@ class CommentForm extends Component{
         <div className="commentForm ">
             <form className="form-group" onSubmit={this.handleSubmit}>
                 <fieldset >
-                    <legend>New Comment</legend>
+                    {this.getIntentTitle()}
                     <div className="form-row ">
                         <textarea 
                             value={comment.body}
@@ -73,7 +99,7 @@ class CommentForm extends Component{
                             onChange={this.handleChangeBody}
                             id="commentFormTextArea"
                             rows="8"
-                            placeholder="Write a New Post"
+                            placeholder="Write a comment"
                             required
                             />
                     </div>
@@ -89,4 +115,14 @@ class CommentForm extends Component{
     }
 }
 
-export default withRouter(connect()(CommentForm));
+function mapStateToProps({ comments }, router) {
+ 
+    if(comments != null){
+      return {
+        comment: Object.values(comments).filter((p) =>  p.id === router.match.params.commentId).shift(),
+      }
+    }
+    return {}
+}
+
+export default withRouter(connect(mapStateToProps)(CommentForm));

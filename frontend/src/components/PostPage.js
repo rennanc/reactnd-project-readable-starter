@@ -30,7 +30,7 @@ class PostPage extends Component {
           <ul className="list-group list-group-flush">
             {comments != null && comments.map((comment) => (
                 <li key={comment.id} className="list-group-item">
-                  <Comment id={comment.id} parentId={comment.parentId} />
+                  <Comment id={comment.id} parentId={comment.parentId} comment={comment} />
                 </li>
             ))}
           </ul>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleCreatePost, handleUpdatePost } from '../actions/posts'
 import { Redirect } from "react-router-dom";
+import { generateUID } from '../utils/helpers'
 
 class PostForm extends Component{
 
@@ -70,29 +71,35 @@ class PostForm extends Component{
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const { dispatch } = this.props
+        const { dispatch, id } = this.props
         const { post, isEdit } = this.state
+
+        var postId = null
 
         if(isEdit){
             dispatch(handleUpdatePost(post.id, post))
         }else{
-            dispatch(handleCreatePost(post))
+            postId = generateUID()
+            dispatch(handleCreatePost(postId, post))
         }
 
         this.setState(() => ({
+            id: postId,
             post: post,
-           toHome: post.id ? false : true,
+           toHome: id ? false : true,
         }))
     }
 
         
     render() {
-        const { post, toHome, isEdit } = this.state
+        const { post, toHome, isEdit, id } = this.state
 
         if(toHome === true && !isEdit){
-            return <Redirect to='/' />
+            const redirectUrl = this.props.location.pathname.replace('newPost', 'posts/'+ id)
+            return <Redirect to={redirectUrl} />
         }else if(toHome === true && isEdit){
-            return <Redirect go={-1} />
+            const redirectUrl = this.props.location.pathname.replace('/edit','')
+            return <Redirect to={redirectUrl} />
         }
 
         return (

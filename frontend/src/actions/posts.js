@@ -1,7 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { getCatPost, getPost, addPost, voteChange, deletePost, updatePost } from "../utils/api"
-import { generateUID } from '../utils/helpers'
-
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY'
@@ -66,7 +64,7 @@ function createPost(post){
     }
 }
 
-export function handleCreatePost(post) {
+export function handleCreatePost(id, post) {
     return (dispatch, getState) => {
         const { authedUser } = getState()
 
@@ -74,12 +72,12 @@ export function handleCreatePost(post) {
 
         post = {
             ...post,
-            id: generateUID(),
+            id: id,
             timestamp: Math.floor(Date.now()),
             author: authedUser
         }
 
-        return addPost(post.id, post)
+        return addPost(id, post)
                 .then((post) => dispatch(createPost(post)))
                 .then(() => dispatch(hideLoading()))
     }
