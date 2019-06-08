@@ -20,25 +20,25 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.props.categories)
+    console.log(this.props.categoryNames)
     return (
       <Router>
         <Fragment>
           <LoadingBar />
           <div className="App container-fluid">
-            <Nav />
+            <Nav categories={this.props.categoryNames} />
             <br/>
             {this.props.loading === true
               ? null
               :
               <div>
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/categories/:category' exact component={CategoryPage} />
-                <Route path='/categories/:category/posts/:postId' component={PostPage} />
-                <Route path='/categories/:category/posts/:postId/edit' component={PostForm} />
-                <Route path='/categories/:category/posts/:postId/newComment' component={CommentForm} />
-                <Route path='/categories/:category/posts/:postId/comment/:commentId/edit' component={CommentForm} />
-                <Route path='/categories/:category/newPost' exact component={PostForm} />
+                <Route path='/:category' exact component={CategoryPage} />
+                <Route path='/:category/newPost' exact component={PostForm} />
+                <Route path='/:category/:postId' component={PostPage} />
+                <Route path='/:category/:postId/edit' component={PostForm} />
+                <Route path='/:category/:postId/newComment' component={CommentForm} />
+                <Route path='/:category/:postId/comment/:commentId/edit' component={CommentForm} />
               </div>
             }
           </div>
@@ -48,7 +48,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({authedUser}) {
+function mapStateToProps({authedUser, categories}) {
   return{
     loading: authedUser === null
   }

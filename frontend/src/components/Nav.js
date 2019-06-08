@@ -1,7 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export default function Nav () {
+export default function Nav (props) {
+  console.log(props)
   return (
     <nav className='nav navbar navbar-expand-lg navbar-light bg-light'>
       <NavLink to={`/`} className='navbar-brand' >Readable Project</NavLink>

@@ -28,7 +28,7 @@ class CategoryPage extends Component {
               </nav>
               <div className="row">
                 <div className="col">
-                  <Link to={`/categories/${category.path}/newPost`}>
+                  <Link to={`/${category.path}/newPost`}>
                     <button type="button" className="btn btn-primary">Create Post</button>
                   </Link>
                 </div>

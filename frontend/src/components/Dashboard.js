@@ -12,16 +12,16 @@ class Dashboard extends Component {
     return (
       <div>
         <ul className='category-list list-group list-group-horizontal-md'>
-          {categoryNames.map((name) => (
-            <li className="list-group-item" key={name}>
-              <Category key={name} name={name} />
+          {categoryNames.map((name, index) => (
+            <li className="list-group-item" key={index}>
+              <Category key={index} name={name} />
             </li>
           ))}
         </ul>
         <ul className='category-list list-group list-group-flush'>
-          {posts.map((post) => (
-            <li className="list-group-item" key={post.id}>
-              <Post post={post} key={post.id}  />
+          {posts.map((post,index) => (
+            <li className="list-group-item" key={index}>
+              <Post post={post} key={index}  />
             </li>
           ))}
         </ul>

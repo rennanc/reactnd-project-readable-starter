@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 import Post from './Post'
 import Comment from './Comment'
 
+const NEW_POST = "newPost"
+
 class PostPage extends Component {
 
   componentDidMount(){
@@ -21,7 +23,7 @@ class PostPage extends Component {
             post !== undefined && post !== null && (
               <div>
                 <Post post={post} />
-                <Link to={`/categories/${post.category}/posts/${post.id}/newComment`}>
+                <Link to={`/${post.category}/${post.id}/newComment`}>
                   <button type="button" className="btn btn-primary">Add Comment</button>
                 </Link>
               </div>
@@ -42,7 +44,10 @@ class PostPage extends Component {
 
 
 function mapStateToProps({ posts, comments}, router) {
-    const post =  Object.keys(posts).length > 0 ? posts : null
+    var post = null;
+    if(router.match.params.postId !== NEW_POST){
+      post = Object.values(posts).filter((p) => p.id === router.match.params.postId).shift()
+    }
     if(post != null){
       return {
         post: post,

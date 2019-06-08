@@ -23,7 +23,7 @@ export default function posts(state = { }, action) {
         case RECEIVE_POST:
             return {
                 ...state,
-                ...action.post
+                [action.post.id]: action.post,
             }
         case CREATE_POST:
             return {

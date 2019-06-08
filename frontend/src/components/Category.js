@@ -6,7 +6,7 @@ class Category extends Component {
   render() {
     const { category } = this.props
     return (
-      <Link to={`/categories/${category.path}`} className='tweet'>
+      <Link to={`/${category.path}`} className='tweet'>
           <div className="Category">
             {category.name}
           </div>

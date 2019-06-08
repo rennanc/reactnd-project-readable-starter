@@ -95,7 +95,7 @@ class PostForm extends Component{
         const { post, toHome, isEdit, id } = this.state
 
         if(toHome === true && !isEdit){
-            const redirectUrl = this.props.location.pathname.replace('newPost', 'posts/'+ id)
+            const redirectUrl = this.props.location.pathname.replace('newPost', id)
             return <Redirect to={redirectUrl} />
         }else if(toHome === true && isEdit){
             const redirectUrl = this.props.location.pathname.replace('/edit','')

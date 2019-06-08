@@ -45,10 +45,10 @@ class Post extends Component {
               <h5 className="card-title">{post.title}</h5>
               <h6 className="card-subtitle mb-2 text-muted">@{post.author} - {formatDate(post.timestamp)}</h6>
               <p className="card-text">{post.body}</p>
-              <Link to={`/categories/${post.category}/posts/${post.id}`}>
+              <Link to={`/${post.category}/${post.id}`}>
                 <button  className='card-link btn btn-link'>Comment ({post.commentCount})</button>
               </Link>
-              <Link to={`/categories/${post.category}/posts/${post.id}/edit`}>
+              <Link to={`/${post.category}/${post.id}/edit`}>
                 <button  className='card-link btn btn-link'>Edit</button>
               </Link>
               <button className='card-link btn btn-link' onClick={(e) => this.handleRemovePost(e)}>Delete</button>
