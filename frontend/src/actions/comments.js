@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { getComments, addComment, voteChange, deleteComment, updateComment } from "../utils/api"
+import { commentCountPost, UP_COUNT_COMMENT, DOWN_COUNT_COMMENT } from './posts'
 import { generateUID } from '../utils/helpers'
 
 export const RECEIVE_COMMENTS_BY_POST = 'RECEIVE_COMMENTS_BY_POST'
@@ -51,7 +52,10 @@ export function handleCreateComment(comment) {
         }
 
         return addComment(idGenerated, comment)
-                .then((comment) => dispatch(createComment(comment)))
+                .then((comment) => {
+                    dispatch(createComment(comment))
+                    dispatch(commentCountPost(comment.parentId, UP_COUNT_COMMENT))
+                })
                 .then(() => dispatch(hideLoading()))
     }
 }
@@ -84,6 +88,7 @@ export function handleDeleteComment(commentId){
         return deleteComment(commentId)
             .then((comment) => {
                 dispatch(removeComment({comment}))
+                dispatch(commentCountPost(comment.parentId, DOWN_COUNT_COMMENT))
                 dispatch(hideLoading())
             })
     }

@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { handleReceivePostsByCategory } from '../actions/posts'
 import { Link } from 'react-router-dom'
 import Post from './Post'
 
 
 class CategoryPage extends Component {
-
-  componentDidMount(){
-    //this.props.dispatch(handleReceivePostsByCategory(this.props.match.params.category))
-  }
 
   render(){
     const { category, posts } = this.props

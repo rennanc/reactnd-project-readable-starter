@@ -5,7 +5,10 @@ import {
     CREATE_POST,
     DELETE_POST,
     UPDATE_POST,
-    VOTE_POST
+    VOTE_POST,
+    COMMENT_COUNT_POST,
+    UP_COUNT_COMMENT,
+    DOWN_COUNT_COMMENT
  } from '../actions/posts'
 
 export default function posts(state = { }, action) {
@@ -37,6 +40,18 @@ export default function posts(state = { }, action) {
                 ...state,
                 ...action.post,
             }
+        case COMMENT_COUNT_POST: 
+            return Object.assign({},Object.values(state).map((p) => {
+                if (p.id === action.postId) {
+                    if(action.commentCountOption === UP_COUNT_COMMENT){
+                        p.commentCount++;
+                    }
+                    if(action.commentCountOption === DOWN_COUNT_COMMENT){
+                        p.commentCount--;
+                    }
+                }
+                return p;
+            }))
         case VOTE_POST:
             return Object.assign({},Object.values(state).map((p) => {
                     if (p.id === action.post.id) {

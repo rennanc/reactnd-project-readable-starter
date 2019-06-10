@@ -8,7 +8,10 @@ export const CREATE_POST = 'RECEIVE_POST'
 export const VOTE_POST = 'VOTE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
+export const COMMENT_COUNT_POST = 'COMMENT_COUNT_POST'
 
+export const UP_COUNT_COMMENT = 'upCountComment'
+export const DOWN_COUNT_COMMENT = 'downCountComment'
 
 export function receivePosts(posts){
     return {
@@ -91,8 +94,7 @@ function votePost(post){
 }
 
 export function handleVotePost(postId, vote){
-    return (dispatch, getState) => {
-        const { posts } = getState()
+    return (dispatch) => {
         dispatch(showLoading())
 
         return voteChange(postId, vote, "posts")
@@ -100,6 +102,15 @@ export function handleVotePost(postId, vote){
                 dispatch(votePost(post))
                 dispatch(hideLoading())
             })
+    }
+}
+
+
+export function commentCountPost(postId, commentCountOption) {
+    return {
+        type: COMMENT_COUNT_POST,
+        commentCountOption,
+        postId,
     }
 }
 
