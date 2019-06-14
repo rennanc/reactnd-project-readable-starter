@@ -46,7 +46,7 @@ class PostPage extends Component {
 function mapStateToProps({ posts, comments}, router) {
     var post = null;
     if(router.match.params.postId !== NEW_POST){
-      post = Object.values(posts).filter((p) => p.id === router.match.params.postId).shift()
+      post = posts.item
     }
     if(post != null){
       return {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { formatDate } from '../utils/helpers'
 import { GoArrowUp, GoArrowDown } from "react-icons/go";
 import { handleVotePost, handleDeletePost } from '../actions/posts'
@@ -18,6 +18,9 @@ class Post extends Component {
   handleRemovePost = (e) => {
     const { post, dispatch } = this.props
     dispatch(handleDeletePost(post.id))
+      .then(() => {
+        this.props.history.push('/');
+      })
   }
 
   render() {
@@ -61,4 +64,4 @@ class Post extends Component {
   }
 }
 
-export default connect()(Post);
+export default withRouter(connect()(Post));

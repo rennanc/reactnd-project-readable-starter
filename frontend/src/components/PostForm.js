@@ -143,11 +143,11 @@ class PostForm extends Component{
 }
 
 
-function mapStateToProps({ posts }, router) {
+function mapStateToProps({ posts }) {
  
     if(posts != null){
       return {
-        post: Object.values(posts).filter((p) =>  p.id === router.match.params.postId).shift(),
+        post: posts.item
       }
     }
     return {}

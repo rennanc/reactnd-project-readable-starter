@@ -16,49 +16,72 @@ export default function posts(state = { }, action) {
         case RECEIVE_POSTS:
             return {
                 ...state,
-                ...action.posts,
+                items: action.posts,
         }
         case RECEIVE_POSTS_BY_CATEGORY:
             return {
                 ...state,
-                ...action.posts,
+                items: action.posts,
             }
         case RECEIVE_POST:
             return {
                 ...state,
-                [action.post.id]: action.post,
+                item: action.post,
             }
         case CREATE_POST:
             return {
                 ...state,
-                [action.post.id]: action.post,
+                item: action.post,
+                items: state.items.concat(action.post)
             }
         case DELETE_POST:
-            return Object.assign({},Object.values(state).filter(c => c.id !== action.post.id))
+            return {
+                ...state,
+                items: state.items.filter((post) => post.id !== action.post.id)
+            }
         case UPDATE_POST:
             return {
                 ...state,
-                ...action.post,
+                item: action.post,
+                items: state.items.map((p) => {
+                    if(p.id === action.post.id){
+                        return action.post
+                    }
+                    return p
+                })
             }
         case COMMENT_COUNT_POST: 
-            return Object.assign({},Object.values(state).map((p) => {
-                if (p.id === action.postId) {
-                    if(action.commentCountOption === UP_COUNT_COMMENT){
-                        p.commentCount++;
+            var commentCount = 0
+            if(action.commentCountOption === UP_COUNT_COMMENT){
+                commentCount = ++state.item.commentCount
+            }
+            if(action.commentCountOption === DOWN_COUNT_COMMENT){
+                commentCount = --state.item.commentCount
+            }
+            return {
+                ...state,
+                item: {
+                    ...state.item,
+                    commentCount: commentCount
+                },
+                items: state.items.map((p) => {
+                    if(p.id === action.postId){
+                         p = state.item
                     }
-                    if(action.commentCountOption === DOWN_COUNT_COMMENT){
-                        p.commentCount--;
-                    }
-                }
-                return p;
-            }))
+                    return p
+                })
+            }
         case VOTE_POST:
-            return Object.assign({},Object.values(state).map((p) => {
+            return {
+                ...state,
+                item: action.post,
+                items: state.items.map((p) => {
                     if (p.id === action.post.id) {
                         return action.post;
                     }
                     return p;
-                }))
+                })
+            }
         default:
             return state
     }

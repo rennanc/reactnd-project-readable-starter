@@ -34,7 +34,7 @@ function mapStateToProps({categories, posts}) {
   return {
       categoryNames: Object.keys(categories)
           .sort((a,b) => categories[b].name -  categories[a].name),
-      posts: Object.values(posts).filter((p) => p.title != null)
+      posts: posts.items
   }
 }
 

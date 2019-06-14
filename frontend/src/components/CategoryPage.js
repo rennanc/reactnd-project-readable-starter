@@ -53,7 +53,7 @@ function mapStateToProps({categories, posts}, router) {
   const category = categoriesList.filter((c) => c.path === router.match.params.category).shift()
 
   if(category != null){
-    const postsFiltered = Object.values(posts).filter((p) => p.category === category.path)
+    const postsFiltered = posts.items.filter((p) => p.category === category.path)
     return {
       category: category,
       posts: postsFiltered,
