@@ -8,7 +8,10 @@ import {
     VOTE_POST,
     COMMENT_COUNT_POST,
     UP_COUNT_COMMENT,
-    DOWN_COUNT_COMMENT
+    DOWN_COUNT_COMMENT,
+    ORDER_POST_BY,
+    ORDER_BY_NEWER,
+    ORDER_BY_RISING
  } from '../actions/posts'
 
 export default function posts(state = { }, action) {
@@ -80,6 +83,18 @@ export default function posts(state = { }, action) {
                         return action.post;
                     }
                     return p;
+                })
+            }
+        case ORDER_POST_BY:
+            return {
+                ...state,
+                items: state.items.sort((a,b) => {
+                    if(action.orderByIntent === ORDER_BY_NEWER){
+                        return b.timestamp - a.timestamp
+                    }
+                    if(action.orderByIntent === ORDER_BY_RISING){
+                        return b.voteScore - a.voteScore
+                    }
                 })
             }
         default:

@@ -9,9 +9,13 @@ export const VOTE_POST = 'VOTE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const COMMENT_COUNT_POST = 'COMMENT_COUNT_POST'
+export const ORDER_POST_BY = 'ORDER_POST_BY'
 
 export const UP_COUNT_COMMENT = 'upCountComment'
 export const DOWN_COUNT_COMMENT = 'downCountComment'
+
+export const ORDER_BY_NEWER = "1"
+export const ORDER_BY_RISING = "2"
 
 export function receivePosts(posts){
     return {
@@ -150,5 +154,14 @@ export function handleDeletePost(postId){
                 dispatch(removePost({post}))
                 dispatch(hideLoading())
             })
+    }
+}
+
+export function handleOrderPostBy(orderByIntent){
+    return (dispatch) => {
+        dispatch({
+            type: ORDER_POST_BY,
+            orderByIntent
+        })
     }
 }
