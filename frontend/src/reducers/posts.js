@@ -95,6 +95,7 @@ export default function posts(state = { }, action) {
                     if(action.orderByIntent === ORDER_BY_RISING){
                         return b.voteScore - a.voteScore
                     }
+                    return false
                 })
             }
         default:

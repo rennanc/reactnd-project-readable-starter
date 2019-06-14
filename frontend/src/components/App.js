@@ -8,7 +8,7 @@ import CategoryPage from "./CategoryPage";
 import PostPage from "./PostPage";
 import PostForm from "./PostForm";
 import CommentForm from "./CommentForm";
-import Nav from './Nav'
+import Navigation from './Navigation'
 
 import '../App.css';
 
@@ -26,7 +26,7 @@ class App extends Component {
         <Fragment>
           <LoadingBar />
           <div className="App container-fluid">
-            <Nav categories={this.props.categoryNames} />
+            <Navigation categories={this.props.categories} />
             <br/>
             {this.props.loading === true
               ? null
@@ -51,8 +51,8 @@ class App extends Component {
 function mapStateToProps({authedUser, categories}) {
   return{
     loading: authedUser === null,
-    categoryNames: Object.keys(categories)
-          .sort((a,b) => categories[b].name -  categories[a].name),
+    categories: Object.values(categories)
+          .sort((a,b) => b.name - a.name),
   }
 }
 

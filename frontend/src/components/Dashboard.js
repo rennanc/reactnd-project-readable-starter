@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Category from './Category'
 import { handleOrderPostBy, ORDER_BY_NEWER, ORDER_BY_RISING } from '../actions/posts'
 import Post from './Post'
 import {Selector} from './Selector'
@@ -26,7 +25,7 @@ class Dashboard extends Component {
   render(){
     console.log(this.props)
 
-    const { posts, categoryNames } = this.props
+    const { posts } = this.props
     const orderByItems = [
       {value : ORDER_BY_NEWER, name : 'Newer'},
       {value : ORDER_BY_RISING, name : 'Rising'},
@@ -35,16 +34,7 @@ class Dashboard extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col">
-            <ul className='category-list list-group list-group-horizontal-md'>
-              {categoryNames.map((name, index) => (
-                <li className="list-group-item" key={index}>
-                  <Category key={index} name={name} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col form-group">
+          <div className="col-2 form-group ">
             <label htmlFor="orderPosts">Order By</label>
             <Selector 
               arrayValuesAndNames={orderByItems}
@@ -68,8 +58,8 @@ class Dashboard extends Component {
 
 function mapStateToProps({categories, posts}) {
   return {
-      categoryNames: Object.keys(categories)
-          .sort((a,b) => categories[b].name -  categories[a].name),
+      categoryNames: Object.values(categories)
+          .sort((a,b) => b.name -  a.name),
       posts: posts.items
   }
 }

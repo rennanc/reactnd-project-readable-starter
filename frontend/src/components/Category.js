@@ -17,7 +17,7 @@ class Category extends Component {
 
 
 function mapStateToProps({categories}, { name }) {
-  const category = categories[name]
+  const category = Object.values(categories).filter((c) => c === name)
 
   return {
     category: category

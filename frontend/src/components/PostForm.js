@@ -19,7 +19,7 @@ class PostForm extends Component{
     componentDidMount() {
         const { post } = this.props
         const { postId, category } = this.props.match.params
-        if(postId != null && post != null){
+        if(postId != null){
             this.setState(() => ({
                 post: post,
                 isEdit: true
@@ -104,7 +104,8 @@ class PostForm extends Component{
 
         return (
         <div className="postForm ">
-            <form className="form-group" onSubmit={this.handleSubmit}>
+            {post != null && (
+                <form className="form-group" onSubmit={this.handleSubmit}>
                 <fieldset >
                     {this.getIntentTitle()}
                     <div className="form-row">
@@ -136,18 +137,20 @@ class PostForm extends Component{
                     className="btn btn-primary"
                     disabled={post.body === '' || post.title === ''}>Post</button>
                 </fieldset>
-             </form>
+            </form>
+            )}
+            
         </div>
         )
     }
 }
 
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts }, router) {
  
     if(posts != null){
       return {
-        post: posts.item
+        post: posts.items.filter((p) =>  p.id === router.match.params.postId).shift(),
       }
     }
     return {}
