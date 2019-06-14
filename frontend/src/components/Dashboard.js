@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Category from './Category'
 import { handleOrderPostBy, ORDER_BY_NEWER, ORDER_BY_RISING } from '../actions/posts'
 import Post from './Post'
-import {Selector} from './Select'
+import {Selector} from './Selector'
 
 class Dashboard extends Component {
 

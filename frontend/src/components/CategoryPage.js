@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom'
 import Post from './Post'
 import { handleOrderPostBy, ORDER_BY_NEWER, ORDER_BY_RISING } from '../actions/posts'
-import {Selector} from './Select'
+import {Selector} from './Selector'
 
 
 class CategoryPage extends Component {
