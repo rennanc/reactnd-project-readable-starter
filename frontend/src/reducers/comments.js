@@ -11,29 +11,41 @@ export default function comments(state = {}, action) {
         case RECEIVE_COMMENTS_BY_POST:
             return {
                 ...state,
-                ...action.comments,
+                items: action.comments
             }
         case CREATE_COMMENT:
             return {
                 ...state,
-                [action.comment.id]: action.comment,
+                item: action.comment,
+                items: state.items.concat(action.comment)
             }
         case DELETE_COMMENT:
-            return Object.assign({},Object.values(state).filter(c => c.id !== action.comment.id))
+            return {
+                ...state,
+                items: state.items.filter((comment) => comment.id !== action.comment.id)
+            }
         case VOTE_COMMENT:
-            return Object.assign({},Object.values(state).map((c) => {
+            return {
+                ...state,
+                item: action.comment,
+                items: state.items.map((c) => {
                     if (c.id === action.comment.id) {
                         return action.comment;
                     }
                     return c;
-                }))
+                })
+            }
         case UPDATE_COMMENT:
-            return Object.assign({},Object.values(state).map((c) => {
-                if (c.id === action.comment.id) {
-                    return action.comment;
-                }
-                return c;
-            }))
+            return {
+                ...state,
+                item: action.comment,
+                items: state.items.map((c) => {
+                    if(c.id === action.comment.id){
+                        return action.comment
+                    }
+                    return c
+                })
+            }
         default:
             return state
     }

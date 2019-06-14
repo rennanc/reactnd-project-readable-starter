@@ -119,7 +119,7 @@ function mapStateToProps({ comments }, router) {
  
     if(comments != null){
       return {
-        comment: Object.values(comments).filter((p) =>  p.id === router.match.params.commentId).shift(),
+        comment: comments.items.filter((p) =>  p.id === router.match.params.commentId).shift(),
       }
     }
     return {}

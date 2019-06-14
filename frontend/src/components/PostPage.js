@@ -51,7 +51,7 @@ function mapStateToProps({ posts, comments}, router) {
     if(post != null){
       return {
         post: post,
-        comments: Object.values(comments).filter((c) =>  c.parentId === router.match.params.postId),
+        comments: comments.items.filter((c) =>  c.parentId === router.match.params.postId),
       }
     }
     return {}

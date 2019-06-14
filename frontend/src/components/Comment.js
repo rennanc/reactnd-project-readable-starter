@@ -62,7 +62,7 @@ class Comment extends Component{
 
 function mapStateToProps({comments}, { id, parentId }) {
   return {
-    comment: Object.values(comments).filter((c) => c.id === id && c.parentId === parentId)[0]
+    comment: comments.items.filter((c) => c.id === id && c.parentId === parentId)[0] //
   }
 }
 
