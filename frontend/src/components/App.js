@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.props.categoryNames)
+    console.log(this.props.categories)
     return (
       <Router>
         <Fragment>
@@ -50,7 +50,9 @@ class App extends Component {
 
 function mapStateToProps({authedUser, categories}) {
   return{
-    loading: authedUser === null
+    loading: authedUser === null,
+    categoryNames: Object.keys(categories)
+          .sort((a,b) => categories[b].name -  categories[a].name),
   }
 }
 
